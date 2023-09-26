@@ -7,6 +7,10 @@
 #include <stdio.h>
 #include <string.h>
 #define TAMANHO 502
+void lixo_memoria(char resultado[]) // Função para limpar o lixo de memória.
+{
+    memset(resultado, '0', TAMANHO); // Preenche toda a string com '0'.
+}
 int comparacao(char str_primeiro[], char str_segundo[]) // Função para comparar o tamanho das strings.
 {
     int tamanho_str1 = strlen(str_primeiro); // Armazenando o tamanho da string.
@@ -20,80 +24,89 @@ int comparacao(char str_primeiro[], char str_segundo[]) // Função para compara
         return tamanho_str2;
     }
 }
-void remover_zeros(char numero[], int tamanho) // Função para remover os zero a esquerda.
+void remover_zeros(char numero[]) // Função remover zeros à esquerda.
 {
-    int contador_zero = 0;
-    while (numero[contador_zero] == '0' && contador_zero < tamanho - 1) // Percorrendo as strings e verificando se há zeros.
+    int cont_zero = 0;
+    while (numero[cont_zero] == '0' && numero[cont_zero + 1] != '\0') // Percorrendo a string para encontrar '0' e chegar no final '\0'.
     {
-        contador_zero++;
+        cont_zero++; // Encontre o índice do primeiro dígito não zero.
     }
-    for (int i = contador_zero; i < tamanho; i++) // Posicionando o número na posição certa.
+    if (cont_zero > 0) // Se o '0' for encontrado.
     {
-        numero[i - contador_zero] = numero[i];
+        int posicao = 0;
+        while (numero[cont_zero] != '\0') // Percorrendo a string.
+        {
+            numero[posicao] = numero[cont_zero]; // Formatando a string posicionando o número na esquerda.
+            cont_zero++;
+            posicao++;
+        }
+        numero[posicao] = '\0'; // Terminate a string.
     }
-    numero[tamanho - contador_zero] = '\0'; // Alocando o final da string.
 }
 void subtracao(char primeiro_numero[], char segunda_numero[], char resultado[])
 {
-    int tamanho_primeiro_numero = strlen(primeiro_numero);
-    int tamanho_segundo_numero = strlen(segunda_numero);
-    int sinal = strcmp(primeiro_numero, segunda_numero);
-    if (tamanho_primeiro_numero == tamanho_segundo_numero && sinal == 0)
-    { // com 2 strings iguais, subtração =0.
-        resultado[0] = '0';
-        resultado[1] = '\0';
-        return; // retorna imediatamente com a resposta =0.
-    }
-    int negativo = 0;
-    if (tamanho_primeiro_numero < tamanho_segundo_numero || (tamanho_primeiro_numero == tamanho_segundo_numero && sinal < 0))
+    lixo_memoria(resultado);        // Funçao Lixo de memória.
+    remover_zeros(primeiro_numero); // Função retirar os zero a esquerda.
+    remover_zeros(segunda_numero);
+    int tamanho_primeiro_numero = strlen(primeiro_numero);               // Tamanho do primeiro número.
+    int tamanho_segundo_numero = strlen(segunda_numero);                 // Tamanho do segundo número.
+    int sinal = strcmp(primeiro_numero, segunda_numero);                 // Comparando as duas strings, 0 = iguais, 1 = primeiro número > segundo número, -1 = segundo número > primeiro número.
+    if (tamanho_primeiro_numero == tamanho_segundo_numero && sinal == 0) // Se as duas strings possuirem o mesmo tamanho e serem iguais o resultado será zero.
     {
-        negativo = 1;
+        resultado[0] = '0';  // Dando o resultado zero "5 - 5 = 0".
+        resultado[1] = '\0'; // Terminando a string.
+        return;              // Dando o retorno do resultado caso aconteça o evento.
     }
-    int tamanho_maior = comparacao(primeiro_numero, segunda_numero);
-    int diferenca = 0; // empréstimo.
-    int subtracao = 0; // armazenar a subtração.
-    for (int i = 0; i < tamanho_maior; i++)
+    int negativo = 0;                                                                                                         // Inicializando o negativo como zero, caso boolean.
+    if (tamanho_primeiro_numero < tamanho_segundo_numero || (tamanho_primeiro_numero == tamanho_segundo_numero && sinal < 0)) // Caso o segundo número seja maior que o primeiro número.
+    {
+        negativo = 1; // Caso verdade.
+    }
+    int tamanho_maior = comparacao(primeiro_numero, segunda_numero); // Chamando a função para retornar o maior valor entre o primeiro número e o segundo número.
+    int diferenca = 0;                                               // Empréstimo.
+    int subtracao = 0;                                               // Armazenar a subtração.
+    for (int i = 0; i < tamanho_maior; i++)                          // Percorrendo a string do maior valor.
     {
         int digito_primeiro_numero;
         if (i < tamanho_primeiro_numero)
         {
-            digito_primeiro_numero = primeiro_numero[tamanho_primeiro_numero - i - 1] - '0';
+            digito_primeiro_numero = primeiro_numero[tamanho_primeiro_numero - i - 1] - '0'; // A transformação de cada digito em ASCII (caracter - inteiro).
         }
         else
         {
-            digito_primeiro_numero = 0;
+            digito_primeiro_numero = 0; // Fim dos digitos do primeiro número.
         }
         int digito_segundo_numero;
         if (i < tamanho_segundo_numero)
         {
-            digito_segundo_numero = segunda_numero[tamanho_segundo_numero - i - 1] - '0';
+            digito_segundo_numero = segunda_numero[tamanho_segundo_numero - i - 1] - '0'; // A transformação de cada digito em ASCII (caracter - inteiro).
         }
         else
         {
-            digito_segundo_numero = segunda_numero[tamanho_segundo_numero - i - 1] - '0';
+            digito_segundo_numero = 0; // A transformação de cada digito em ASCII (caracter - inteiro).
         }
-        if (negativo) // caso a string 'b' seja um número maior, colocaremos os dígitos dela como os primeiros.
+        if (negativo) // Caso o negativo seja verdade, a substituição começara com os valores do segundo número, já que, segundo número > primeiro número.
         {
-            int subtracao = digito_segundo_numero - digito_primeiro_numero - diferenca; // subtração, dígito por dígito, considerando o empréstimo 'c' caso necessário.
-            if (digito_segundo_numero - diferenca < digito_primeiro_numero)
+            int subtracao = digito_segundo_numero - digito_primeiro_numero - diferenca; // Subtração de cada digito tirando a diferença.
+            if (digito_segundo_numero - diferenca < digito_primeiro_numero)             // Evento de empréstimo.
             {
-                diferenca = 1; // empréstimo.
+                diferenca = 1; // Caso o digito seja maior será retirado 1 unidade dele para passar para a casa subsequente.
             }
             else
             {
                 diferenca = 0;
             }
-            if (subtracao < 0)
+            if (subtracao < 0) // Evento de empréstimo.
             {
-                subtracao += 10;
+                subtracao += 10; // A casa subsquente obterá 1 dezena no seu valor.
                 diferenca = 1;
             }
-            resultado[tamanho_maior - i - 1] = subtracao + '0';
+            resultado[tamanho_maior - i - 1] = subtracao + '0'; // Transformação de cada digito em ASCII (inteiro - caracter).
         }
-        else
+        else // Caso o negativo seja falso.
         {
-            int subtracao = digito_primeiro_numero - digito_segundo_numero - diferenca;
-            if (digito_primeiro_numero - diferenca < digito_segundo_numero)
+            int subtracao = digito_primeiro_numero - digito_segundo_numero - diferenca; // Subtração de cada digito tirando a diferença.
+            if (digito_primeiro_numero - diferenca < digito_segundo_numero)             // Evento de empréstimo.
             {
                 diferenca = 1;
             }
@@ -101,30 +114,35 @@ void subtracao(char primeiro_numero[], char segunda_numero[], char resultado[])
             {
                 diferenca = 0;
             }
-            if (subtracao < 0)
+            if (subtracao < 0) // Evento de empréstimo
             {
-                subtracao += 10;
+                subtracao += 10; // A casa subsquente obterá 1 dezena no seu valor.
                 diferenca = 1;
             }
-            resultado[tamanho_maior - i - 1] = subtracao + '0';
+            resultado[tamanho_maior - i - 1] = subtracao + '0'; // Transformação de cada digito em ASCII (inteiro - caracter).
         }
-        resultado[tamanho_maior] = '\0';
+        resultado[tamanho_maior] = '\0'; // Fim da strig.
+        remover_zeros(resultado);
     }
-    if (negativo)
+    if (negativo) // Evento parar colocar o - na frente do resultado.
     {
         int tamanho_resultado = strlen(resultado);
-        tamanho_resultado++; // tamanho da string 'resposta' +1, liberando espaço para o sinal.
-        for (int i = tamanho_resultado; i > 0; i--)
+        tamanho_resultado++;                        // Dando espaço para -.
+        for (int i = tamanho_resultado; i > 0; i--) // Percorrendo a string.
         {
-            resultado[i] = resultado[i - 1];
+            resultado[i] = resultado[i - 1]; // Percorrendo a string para dar espaço para o - e arrmando os números.
         }
-        resultado[0] = '-';
+        resultado[0] = '-'; // Tudo feito, coloca o - na frente do resultado.
     }
     printf("%s", resultado);
     printf("\n");
 }
 void multiplicacao(char primeiro_numero[], char segundo_numero[], char resultado[]) // Função multiplicação.
 {
+    for (int i = 0; i < TAMANHO; i++) // Evitar qualquer lixo de memória.
+    {
+        resultado[i] = 0; // Basicamente, vai percorrer o tamanho do resultado inteiro alocando o valor zero em cada dígito.
+    }
     int tamanho_primeiro_numero = strlen(primeiro_numero);
     int tamanho_segundo_numero = strlen(segundo_numero);
     int tamanho_resultado = tamanho_primeiro_numero + tamanho_segundo_numero; // O tamanho total será a soma dos tamanhos das duas strings.
@@ -144,21 +162,20 @@ void multiplicacao(char primeiro_numero[], char segundo_numero[], char resultado
             int multiplicacao = (resultado[i + k + 1] - '0') + (digito_primeiro * digito_segundo) + empresta; // Fazendo o processo da mulitplicação.
             // resultado[i + k + 1] - '0' | Percorrendo o dígito mais significativo e somando com o menos significativo e transformando-o em ASCII (caracter - inteiro).
             resultado[i + k + 1] = (multiplicacao % 10) + '0'; // Faz a transformação de cada resultado da soma dos digitos (inteiro - caracter) em ASCII.
-                                                               // resultado[i + k + 1] = (multiplicacao % 10) + '0' |  Isso é feito para converter o valor numérico (0 a 9) em seu caractere correspondente.
-            empresta = multiplicacao / 10;                     // Emprestimo de uma unidade para a próxima casa.
+            // resultado[i + k + 1] = (multiplicacao % 10) + '0' |  Isso é feito para converter o valor numérico (0 a 9) em seu caractere correspondente.
+            empresta = multiplicacao / 10; // Emprestimo de uma unidade para a próxima casa.
         }
         // Adicione qualquer transporte restante ao dígito mais significativo atual
         resultado[i] = ((resultado[i] - '0') + empresta) + '0'; // Emprestimo para o digito da proxima casa, o resultado é transformando em ASCII (caracter - inteiro) e depois para (inteiro - caracter).
     }
-    remover_zeros(resultado, tamanho_resultado); // Chamando a função para remover os zeros à esquerda.
+    remover_zeros(resultado); // Chamando a função para remover os zeros à esquerda.
     printf("%s\n", resultado);
 }
 void somar(char primeiro_numero[], char segundo_numero[], char resultado[]) // Função Soma.
 {
-    for (int i = 0; i < TAMANHO; i++) // Evitar qualquer lixo de memória.
-    {
-        resultado[i] = 0; // Basicamente, vai percorrer o tamanho do resultado inteiro alocando o valor zero em cada dígito.
-    }
+    lixo_memoria(resultado);
+    remover_zeros(primeiro_numero);
+    remover_zeros(segundo_numero);
     int tamanho_maior = comparacao(primeiro_numero, segundo_numero); // Chamando função que compara as duas strings.
     int empresta = 0;                                                // Inicializando o empresta da soma aritmetica com zero.
     int tamanho_primeiro_numero = strlen(primeiro_numero);           // Contador do primeiro numero.
@@ -214,6 +231,10 @@ int main(void)
     {
         scanf("%s %s", primeiro_numero, segundo_numero);
         scanf("%d", &operador);
+        if (primeiro_numero[i] == '-' || segundo_numero[i] == '-') // Limitador primeiro número > 0 e segundo número > 0.
+        {
+            break;
+        }
         if (operador == 1)
         {
             somar(primeiro_numero, segundo_numero, resultado); // Chamando a função soma.
