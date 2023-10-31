@@ -35,7 +35,9 @@ Windows
 --------- 
 ```
 1. Abra um terminal na pasta onde estão os arquivos.
-2. Execute o comando "mingw32-make". Isso compilará o código e gerará um arquivo executável chamado main.
+2. Execute o comando:
+mingw32-make
+Isso compilará o código e gerará um arquivo executável chamado main.
 Após compilar o código, você pode executá-lo com o seguinte comando:
 ./main
 ```
@@ -43,7 +45,9 @@ Linux
 -------
 ```
 1. Abra um terminal na pasta onde estão os arquivos.
-2. Execute o comando "make". Isso compilará o código e gerará um arquivo executável chamado main.
+2. Execute o comando:
+make
+Isso compilará o código e gerará um arquivo executável chamado main.
 Após compilar o código, você pode executá-lo com o seguinte comando:
 ./main
 Comando para limpar .o e .exe: Make Clean
