@@ -52,3 +52,4 @@ Após compilar o código, você pode executá-lo com o seguinte comando:
 ./main
 Comando para limpar .o e .exe: Make Clean
 ```
+*~[ESS].*
