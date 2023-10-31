@@ -10,10 +10,10 @@
 #define TAMANHO 100
 #define MAX 100000 // Definindo o limite das operações 10^5.
 int linhas;
-int cont = 0;
+int i = 0;
 void controle(char matriz[TAMANHO][TAMANHO], int linhas) // Função que vai decodificar e instruir as ações a serem feitas.
 {
-    for (int i = 0; i < linhas; i++) // Estrutura de repetição que recebe as linhas da matriz.
+    for (int cont = 0; cont < 100000; cont++) // Estrutura de repetição que recebe as linhas da matriz.
     {
         if (cont > MAX) // Interromper caso caia em um loop dos operadores lógicos (BEQ, BLT, JMP).
         {
@@ -90,6 +90,6 @@ void controle(char matriz[TAMANHO][TAMANHO], int linhas) // Função que vai dec
         {
             break;
         }
-        cont++; // Contador das operações efetuadas, interromper 10^5 instruções.
+        i++; // Contador das operações efetuadas, interromper 10^5 instruções.
     }
 }
