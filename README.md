@@ -19,7 +19,7 @@ print("Hello World!")
 ![SQL](https://img.shields.io/badge/MySQL-000?style=for-the-badge&logo=mysql&logoColor=30A3DC)
 -------------------------------------------------------------------------------------------------------------------
 ### GitHub Stats
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=SouErick&theme=transparent&bg_color=000&border_color=30A3DC&show_icons=true&icon_color=30A3DC&title_color=E94D5F&text_color=FFF)
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=SouErick&show_icons=true&theme=radical&rank_icon=github)
 ![Top Langs](https://github-readme-stats-git-masterrstaa-rickstaa.vercel.app/api/top-langs/?username=SouErick&layout=compact&bg_color=000&border_color=30A3DC&title_color=E94D5F&text_color=FFF)
 ------------------------------------------------------------------------------------------------------------------
 ## Projetos
