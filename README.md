@@ -24,7 +24,7 @@ print("Hello World!")
 ------------------------------------------------------------------------------------------------------------------
 ## Projetos
 [![Nome do Projeto](https://github-readme-stats.vercel.app/api/pin/?username=SouErick&repo=dao-jdbc&bg_color=000&border_color=30A3DC&show_icons=true&icon_color=30A3DC&title_color=E94D5F&text_color=FFF)](https://github.com/SouErick/dao-jdbc)
-
+[![Seguradora SENAI](https://github-readme-stats.vercel.app/api/pin/?username=SouErick&repo=seguradora-senai&bg_color=000&border_color=30A3DC&show_icons=true&icon_color=30A3DC&title_color=E94D5F&text_color=FFF)](https://github.com/SouErick/seguradora-senai)
 > Erick Sousa Saraiva [ESS]
 
 
