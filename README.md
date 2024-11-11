@@ -4,7 +4,7 @@ print("Hello World!")
 ```
 <h2> Sobre mim: </h2>
 
-***Tenho 19 anos, estou cursando Ciências da Computação e sempre buscando minha maximização!***
+***Tenho 20 anos, estou cursando Ciências da Computação e sempre buscando minha maximização!***
 >"E ainda tenho muito pra aprender" BK, Universo.
 
 -------------------------------------------------------------------------------------------------------------------
